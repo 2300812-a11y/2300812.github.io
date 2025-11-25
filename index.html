@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Tour - Baguio 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f8f0;
+            color: #2d5016;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(45, 80, 22, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            opacity: 0.9;
+        }
+
+        .header .divider {
+            width: 100px;
+            height: 3px;
+            background: white;
+            margin: 20px auto;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #2d5016;
+            font-weight: bold;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(45, 80, 22, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            background: white;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.25);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 80, 22, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #4a7c2c;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(45, 80, 22, 0.2);
+        }
+
+        .stat-card .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2d5016;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 1.1rem;
+            color: #4a7c2c;
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #4a7c2c;
+        }
+
+        footer {
+            background: #2d5016;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header h2 {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Luis Gabriel D. Ariola</h1>
+        <h2>BSIT 3-2</h2>
+        <div class="divider"></div>
+        <p>Educational Tour on Baguio City 2025,
+            Baguio feels refreshing because of its cool climate, which is a nice escape from the hot weather in other parts of the Philippines. The city is surrounded by beautiful pine trees and scenic mountains that make it peaceful and relaxing. Baguio also has vibrant markets, like the famous Session Road and the Baguio Public Market, where you can enjoy local food and crafts. The city offers fun activities such as visiting parks, gardens, and historical sites, making it perfect for both adventure and relaxation. Overall, Baguio’s combination of nature, culture, and pleasant weather makes it a wonderful place to visit.
+        </p>
+    </header>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number">60</div>
+                <div class="label">Photos Captured</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">3</div>
+                <div class="label">Days of Adventure</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">1</div>
+                <div class="label">Unforgettable Experience</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Photo Gallery</h2>
+        
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="Full size image">
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Educational Tour 2024</strong></p>
+        <p>Philippine Military Academy • Mines View Park • Baguio City • Coffee Project • Strawberry Farm • Stone Kingdom </p>
+        <p>&copy; 2025 Luis Gabriel D. Ariola</p>
+    </footer>
+
+    <script>
+        const imageIds = [
+            '1ZzhplnjzUB0JBkhwEeq8d3mfcqUKKrys',
+            '1Nd_9cXXr0scBUTzft-JK-hMQrpir2ZZk',
+            '1UZw15Q1DkKjrAct5Ml_XlMuZQR2URSe3',
+            '1L3WKxTkW5la44oYfT2HKFJwiL2iHcSr9',
+            '1kFzcP1Ms2VY6_MQSDf7-KqJnjUnLL6GF',
+            '1ViV7rQhe5KJjXCEhA4D4BannMI5dFYv3',
+            '1AoCX-k_M8SKQitWQMCaIBD6JjHHsfXEo',
+            '18R0OaOQWSyYXoUvjMTny-yuF7mPK1F1M',
+            '1_zoT8GR_mgCoer5JUAbCwx_WUnwsB_K6',
+            '1t9YSaxhhXi9I6-zGiiHEPKw99bDDl833',
+            '1tSOMbtkO94H7-_UMyVXJ1__DI6J0GsXQ',
+            '1hVtFmITMaUyHgmyF6tbRbOZylK5sBd1S',
+            '1Z8zRmxzRc6ye8s9Bl-W0u_qeYdBTcDgy',
+            '1SJxXvQr1sDFZ2bauRksBhtOGyu6IyWJs',
+            '1hvlxdthM9Pjlr7STL9v-oR1sRoQ0Hy3t',
+            '1D-CwP52R9gwlHCPtiToEW0Zj43jVV6kb',
+            '1T91VLGHEOPnWsEEQbVxTKHstwbMzqmnu',
+            '1i1SjLoMSbiZ8v_wuEB6YxlimzZ7PqYlV',
+            '1fzCB4oK8WV3TEZxsYZ0EOJFkx1A3ysrJ',
+            '1UlpDM-O-M6UPrz1mTSjKYUosl3talS87',
+            '1MtwCeWhDXZ59hLf6GL68fwtiR3U7-34o',
+            '1u95FL_ZDbMNJtBXFu6RrV7rPwQe1bfYu',
+            '1l5QEjFtAtiLX-9JmWRJcuRCnBxNePLTD',
+            '18Zzbcrx2e53Q3H2fWpbMlvikiQXTJk_p',
+            '1azoF0K0-_nH-Q4c5GGWgkBNqk-4oMIPy',
+            '16nTXsZ7-ShKdmtoeqgA8wawgtgmzs7N3',
+            '1GSbGJj_1FJSfpulAdXJ0x66-UyesbGq4',
+            '1iKosTWVOwuzy5sy6yO3C_QajcRFZ9hA0',
+            '1fPJYEXcjixfl_bjvhKSAuAhhs9SVNDrh',
+            '1p5Dh9zG5_JvaysUtFdu6ONYxdjp6lrbE',
+            '1V-Yh2znEi8IwX9auOHI9i0sDJXm7oBmb',
+            '1JCeHYWqpbDK0kZLSxBtQYh14tR4niE3W',
+            '1-KKpYsckbfy9omdKXmnfOKyxG-421sRT',
+            '1Lvb1GniTScpeAUzkcgctu89h4KEZl2XY',
+            '177QR4KKNMpTQ4eDYojO6ub9heAr98g2k',
+            '17_vQ2KE3WqkL6bKIgTqAFkGr5gbfhkIo',
+            '13CXLr2cvS8hcytBNlfIiWKzn1mnJVTLl',
+            '12yX_SBwQDI-KMzM8Agg8h_SKYnmhvn9X',
+            '1cpL5ts1xkhsavd83kZBOfbk_cKaXoN-X',
+            '1vPQGyJmXDgdlJqseSFrJVxxdvI_-A-St',
+            '1nGOxZXkzuqtPPKd_PoUBnhuhKVRwL1ea',
+            '1YJpMtMfU0bBF2WUk0M7eug3xfUXe39Ok',
+            '1TRr0gHbbCkCKh6YA5w2EFP1kXfu39nqa',
+            '1RTj6UTmkbpRAiJCuNWnVVYtqtiv2ffgp',
+            '1XoKdNlR3C2V1Ne4QK17TkzjJgvaozc_6',
+            '1YFFI5bUxB16Te9pUmGwbhhZhj-5Uowv7',
+            '1iiMf6dQWGFnuhhNaX3cewUIca-2Qb1Fx',
+            '1w6p7sjvqPEdx_1xsU3csQxBpsiP6OOxq',
+            '1VYyhtEBx_W99Lhzpy71_dP7h2Mn2ktAo',
+            '1ElS3UuIwgkjVxnq90BNFknAYcSuBvpIY',
+            '13CL4ThRUWf04o3Bc0lOlun755bJ03M2D',
+            '1pn5zEBM7K-PJGs8ODf1UywoYFDbFxtSm',
+            '1g5mUrxQKW5Pc3IF5-YHmo3eX8caGU96L',
+            '1v3XMrsMyTmlchNxgUV3MGZ2mnxYtAYju',
+            '1n-iRLScUXdSqmy5YmrrUQFk37UwlHoYd',
+            '1KTr6nVSMbMrYWbaiFS6s-DVNRaU9pENz',
+            '1l-KZMZ_ze2GZkZ3LUECfwZqGleW9sz0x',
+            '1HgRR9Y_tpjib3fDiIuH0G6TEgaZ1TuvA',
+            '1BbLkyWdWemdAqX1tCU8SDAOjRinblNNI',
+            '1GEG5y7desO_RqG0ljLUMe4DTd36WDotx'
+        ];
+
+        const gallery = document.getElementById('gallery');
+        
+        imageIds.forEach((id, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.onclick = function() { openModal(this); };
+            
+            const img = document.createElement('img');
+            img.src = `https://drive.google.com/thumbnail?id=${id}&sz=w800`;
+            img.alt = 'Educational Tour Photo';
+            img.loading = 'lazy';
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            
+            const desc = document.createElement('p');
+            desc.textContent = 'Click to view fullscreen';
+            
+            overlay.appendChild(desc);
+            item.appendChild(img);
+            item.appendChild(overlay);
+            gallery.appendChild(item);
+        });
+
+        function openModal(element) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-img');
+            const img = element.querySelector('img');
+            
+            modal.style.display = 'block';
+            modalImg.src = img.src.replace('w800', 'w1600');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.gallery-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
